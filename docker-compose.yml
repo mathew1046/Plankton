@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  plankton-api:
+    build: .
+    container_name: plankton-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/app/models/plankton_classifier_seanoe_8_v2.keras
+      - MODEL_VERSION=8.2
+      - API_TITLE=Marine Organism Identification API
+      - API_VERSION=1.0.0
+      - DEVICE=cpu
+      - INFERENCE_WORKERS=1
+      - DEFAULT_CONFIDENCE_THRESHOLD=0.7
+      - SNAPSHOT_DIR=/app/snapshots
+      - LOG_DIR=/app/logs
+      - MODEL_BACKUP_DIR=/app/models/backups
+      - TEMPERATURE=1.3132
+      - IMG_SIZE=128
+      - CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://localhost:8000,http://localhost:5173
+    volumes:
+      # Mount directories for persistent data
+      - ./logs:/app/logs
+      - ./snapshots:/app/snapshots
+      - ./data:/app/data
+      - ./models:/app/models
+      # Mount model file if it exists (read-only)
+      - ./plankton_classifier_seanoe_8_v2.keras:/app/models/plankton_classifier_seanoe_8_v2.keras:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - plankton-network
+
+  # Optional: Add a frontend service if you have one
+  # plankton-frontend:
+  #   build: ./frontend
+  #   container_name: plankton-frontend
+  #   ports:
+  #     - "3000:80"
+  #   environment:
+  #     - VITE_WS_URL=ws://localhost:8000
+  #     - VITE_API_URL=http://localhost:8000
+  #   depends_on:
+  #     - plankton-api
+  #   restart: unless-stopped
+  #   networks:
+  #     - plankton-network
+
+networks:
+  plankton-network:
+    driver: bridge

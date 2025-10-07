@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: plankton-backend-prod
+    ports:
+      - "8000:8000"
+    environment:
+      - API_KEY=${API_KEY}
+      - MODEL_PATH=/app/models/plankton_model.pth
+      - MODEL_VERSION=${MODEL_VERSION:-1.0.0}
+      - DEVICE=${DEVICE:-cpu}
+      - INFERENCE_WORKERS=${INFERENCE_WORKERS:-4}
+      - CORS_ORIGINS=["https://yourdomain.com"]
+    volumes:
+      - ./backend/models:/app/models:ro
+      - backend-data:/app/data
+      - backend-logs:/app/logs
+    restart: always
+    networks:
+      - plankton-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: plankton-frontend-prod
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - plankton-network
+
+volumes:
+  backend-data:
+  backend-logs:
+
+networks:
+  plankton-network:
+    driver: bridge

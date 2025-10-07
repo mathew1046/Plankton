@@ -1,0 +1,149 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# Node.js (if using frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+dist-ssr/
+*.local
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Model files (keep final model, ignore backups/temp)
+models/*.keras.backup
+models/*_temp.keras
+models/*_backup.keras
+models/weights/
+*.h5
+*.h5.backup
+*.pth.backup
+*.pt.backup
+
+# Data and snapshots
+data/
+datasets/
+snapshots/
+temp/
+tmp/
+temp_files/
+*.jpg
+*.jpeg
+*.png
+
+# Logs (keep log directories but ignore log files)
+logs/*.log
+*.log
+backend/logs/*.log
+app/logs/*.log
+
+# Keep directory structure but ignore contents
+!data/replay_buffer/.gitkeep
+!data/snapshots/.gitkeep
+!logs/.gitkeep
+!models/versions/.gitkeep
+!models/.gitkeep
+!snapshots/.gitkeep
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Configuration with secrets
+config/secrets.json
+config/local_settings.py
+
+# Docker
+.dockerignore
+Dockerfile.*
+docker-compose.override.yml
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Virtual environments (additional)
+.env
+.venv
+env.bak/
+venv.bak/
+
+# Project specific
+backend/venv/
+frontend/node_modules/
+*.sqlite3
+db.sqlite3
